@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int removeDuplicates(std::vector<int>& nums) {
+        int k = 1;
+        bool skip = false;
+        int* temp = new int[nums.size()];
+        int tempIdx = 0;
+
+        for (int i = 0; i < nums.size(); i++) {
+            temp[i] = 0;
+        }
+
+        for (int i = 0; i < nums.size(); i++) {
+            if (!skip) {
+                temp[tempIdx] = nums[i];
+                skip = true; 
+                k++;
+            }
+            if (skip && temp[tempIdx] != nums[i]) {
+                skip = false;
+                tempIdx++;
+                if (i + 1 == nums.size()) {
+                    temp[tempIdx] = nums[i];
+                }
+            }
+        }
+        for (int i = 0; i < nums.size(); i++) {
+            nums[i] = temp[i];
+        }
+        return k;
+    }
+};
